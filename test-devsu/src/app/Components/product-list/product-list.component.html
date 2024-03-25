@@ -1,1 +1,51 @@
-<p>product-list works!</p>
+
+<div class="content">
+
+    <div>
+        <input type="text" [(ngModel)]="term"> <br>
+        <button (click)="addEditProduct({})">Agregar</button>
+    </div>
+    
+
+
+    <table  class="table">
+                <thead class="text-center bg-light">
+                  <tr>
+                    <th>Logo</th>
+                    <th>Nombre del Producto </th>
+                    <th>Descripción </th>
+                    <th>Fecha de Liberación</th>
+                    <th>Fecha de Restructuración</th>     
+                    <th></th>              
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let x of listProducts | filter:term">
+
+                    <td><img [src]="x.logo" style="height: 10vg; width: 10vh;"></td>
+                    <td >{{x.name}}</td>
+                    <td >{{x.description}}</td>
+                    <td >{{x.date_release}}</td>
+                    <td >{{x.date_revision}}</td>
+                    <td>
+                        <div class="dropdown">
+                            <img src="https://cdn-icons-png.flaticon.com/512/61/61140.png" alt="" style="height: 2vh;">
+                            <div class="dropdown-content">
+                            <a (click)="addEditProduct(x)">Editar</a>
+                            <a >Eliminar</a>
+                            </div>
+                          </div>
+                    </td>
+                   
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <label for="recordsPerPage">Mostrar:</label>
+                <select id="recordsPerPage" [(ngModel)]="selectedOption" (change)="Consultar()">
+                  <option value="5" selected>5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                </select>
+              </div>
+</div>

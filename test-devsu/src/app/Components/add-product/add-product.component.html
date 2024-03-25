@@ -1,1 +1,76 @@
-<p>add-product works!</p>
+<form [formGroup]="form"  autocomplete="off"
+novalidate>
+<div class="row">
+
+    <h2>Formulario de Registro</h2>
+
+  <div class="form-group col-sm-12">
+    <label for="id" class="titles"><span class="text-danger">*</span>ID</label>
+    <input class="form-control sololetrasignos" type="text" name="id" minlength="1"  
+      formControlName="id">
+
+      <!--<div *ngIf="form.get('id').invalid && form.get('id').touched">
+        <div *ngIf="form.get('id')?.errors.required" class="error">El nombre es requerido.</div>
+      </div>-->
+
+   
+  </div>
+
+  <div class="form-group col-sm-12">
+    <label for="name" class="titles"><span class="text-danger">*</span>NOMBRE</label>
+    <input class="form-control sololetrasignos" type="text" name="name" minlength="1"  id="name"
+      formControlName="name">
+
+    <!-- <div
+      *ngIf="!form.controls['name'].valid && form.controls['name'].touched">
+      <p class="text-danger animated fadeIn"
+        *ngIf="form.controls['name'].errors.required">
+        ¡Descripción es requerida!</p>
+    </div>-->
+  </div>
+  <div class="form-group col-sm-12">
+    <label for="description" class="titles"><span class="text-danger">*</span>DESCRIPCIÓN</label>
+    <input class="form-control numeros" type="text" name="description" minlength="1" 
+      id="description" formControlName="description">
+
+     <!--<div
+      *ngIf="!form.controls['description'].valid && form.controls['description'].touched">
+      <p class="text-danger animated fadeIn"
+        *ngIf="form.controls['description'].errors.required">
+        ¡Rango Inicial es requerida!</p>
+    </div>-->
+  </div>
+
+
+
+
+  <div class="form-group col-sm-12">
+    <label for="logo" class="titles"><span class="text-danger">*</span>LOGO</label>
+    <input class="form-control" name="logo" id="logo" formControlName="logo"
+      >
+     <!--<div
+      *ngIf="!form.controls['logo'].valid && form.controls['logo'].touched">
+      <p class="text-danger animated fadeIn"
+        *ngIf="form.controls['logo'].errors.required">
+        ¡Rango Final es requerido!</p>
+
+    </div>-->
+  </div>
+
+  <div class="form-group col-sm-12">
+    <label for="date_release" class="titles"><span class="text-danger">*</span>Fecha Vencimiento</label>
+    <input class="form-control" name="date_release" id="date_release" formControlName="date_release"
+      type="date">
+     <!--<div
+      *ngIf="!form.controls['date_release'].valid && form.controls['date_release'].touched">
+      <p class="text-danger animated fadeIn"
+        *ngIf="form.controls['date_release'].errors.required">
+        ¡Fecha de vencimiento es requerido!</p>
+
+    </div>-->
+  </div>
+  <button type="button">Reiniciar</button>
+  <button type="button" (click)="addProduct()">Enviar</button>
+
+</div>
+</form>
