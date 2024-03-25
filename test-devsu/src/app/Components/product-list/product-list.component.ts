@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import {   ProductServices } from '../../Services/ProductServices'
 import {   SharedService } from '../../Services/SharedService'
 import {   environment } from '../../../environments/environment';
 import {ListProductResponse} from '../../Interfases/ListProductResponse'
 import { Router} from '@angular/router';
+import { ModalComponent } from '../modal/modal.component';
+
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -12,6 +15,8 @@ import { Router} from '@angular/router';
 
 
 export class ProductListComponent implements OnInit {
+
+  @ViewChild('modal', {static: false}) modal!: ModalComponent;
 
   constructor(private _productService: ProductServices,
               private router: Router,
@@ -39,6 +44,10 @@ export class ProductListComponent implements OnInit {
         }
           
       );
+  }
+
+  openModal(title:string,option:number,body:any) {
+    this.modal.open(title,option,body);
   }
 
   addEditProduct(data:any){

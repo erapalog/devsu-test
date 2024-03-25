@@ -1,6 +1,6 @@
 
 <div class="container">
-
+  <modal-component #modal></modal-component>
   <div class="row">
     <div class="col-md-12"> <br><br>
       <div class="card">
@@ -15,11 +15,13 @@
               <div class="form-group col-md-6">
                 <label for="id" class="titles"><span class="text-danger">*</span>ID</label>
                 <input class="form-control sololetrasignos" type="text" name="id" minlength="1"  
-                  formControlName="id">
+                  formControlName="id" >
             
-                  <!--<div *ngIf="form.get('id').invalid && form.get('id').touched">
-                    <div *ngIf="form.get('id')?.errors.required" class="error">El nombre es requerido.</div>
-                  </div>-->
+                
+
+                  <div *ngIf="f['id'].errors" class="text-danger">
+                    <div *ngIf="f['id'].errors['required']">ID is required</div>
+                  </div>
             
                
               </div>
@@ -28,36 +30,26 @@
                 <input class="form-control sololetrasignos" type="text" name="name" minlength="1"  id="name"
                   formControlName="name">
             
-                <!-- <div
-                  *ngIf="!form.controls['name'].valid && form.controls['name'].touched">
-                  <p class="text-danger animated fadeIn"
-                    *ngIf="form.controls['name'].errors.required">
-                    ¡Descripción es requerida!</p>
-                </div>-->
+                  <div *ngIf="f['name'].errors" class="text-danger">
+                    <div *ngIf="f['name'].errors['required']">Nombre es requerido</div>
+                  </div>
               </div>
               <div class="form-group col-md-6">
                 <label for="description" class="titles"><span class="text-danger">*</span>DESCRIPCIÓN</label>
                 <input class="form-control numeros" type="text" name="description" minlength="1" 
                   id="description" formControlName="description">
             
-                 <!--<div
-                  *ngIf="!form.controls['description'].valid && form.controls['description'].touched">
-                  <p class="text-danger animated fadeIn"
-                    *ngIf="form.controls['description'].errors.required">
-                    ¡Rango Inicial es requerida!</p>
-                </div>-->
+                  <div *ngIf="f['description'].errors" class="text-danger">
+                    <div *ngIf="f['description'].errors['required']">Descripción es requerido</div>
+                  </div>
               </div>
               <div class="form-group col-md-6">
                 <label for="logo" class="titles"><span class="text-danger">*</span>LOGO</label>
                 <input class="form-control" name="logo" id="logo" formControlName="logo"
                   >
-                 <!--<div
-                  *ngIf="!form.controls['logo'].valid && form.controls['logo'].touched">
-                  <p class="text-danger animated fadeIn"
-                    *ngIf="form.controls['logo'].errors.required">
-                    ¡Rango Final es requerido!</p>
-            
-                </div>-->
+                  <div *ngIf="f['logo'].errors" class="text-danger">
+                    <div *ngIf="f['logo'].errors['required']">Logo es requerido</div>
+                  </div>
   
   
               </div>
@@ -65,30 +57,31 @@
                 <label for="date_release" class="titles"><span class="text-danger">*</span>Fecha Vencimiento</label>
                 <input class="form-control" name="date_release" id="date_release" formControlName="date_release"
                   type="date"><br> 
-                 <!--<div
-                  *ngIf="!form.controls['date_release'].valid && form.controls['date_release'].touched">
-                  <p class="text-danger animated fadeIn"
-                    *ngIf="form.controls['date_release'].errors.required">
-                    ¡Fecha de vencimiento es requerido!</p>
-            
-                </div>-->
+                  <div *ngIf="f['date_release'].errors" class="text-danger">
+                    <div *ngIf="f['date_release'].errors['required']">Fecha Vencimiento es requerido</div>
+                  </div>
+              </div> 
+
+              <div class="form-group col-md-6">
+                <label for="date_revision" class="titles"><span class="text-danger">*</span>Fecha Revisión</label>
+                <input class="form-control" name="date_revision" id="date_revision" formControlName="date_revision"
+                  type="date"><br> 
+                  <div *ngIf="f['date_revision'].errors" class="text-danger">
+                    <div *ngIf="f['date_revision'].errors['required']">Fecha Revisión es requerido</div>
+                  </div>
               </div> 
              
             </div>
 
             <div class="row">
               <div class=" col-md-6 align-content">
-                <button type="button" class="btn btn-light">Reiniciar</button>
+                <button type="button" class="btn btn-light" (click)="resetForm()">Reiniciar</button>
               </div>
               <div class="col-md-6">
-                <button type="button" (click)="addProduct()" class="btn btn-warning ">Enviar</button>
+                <button type="button" (click)="validateProduct()" class="btn btn-warning " [disabled]="form.invalid">Enviar</button>
               </div>
             </div>
-          
-          
-              
-            
-            
+                      
           </form>
 
         </div>
@@ -97,6 +90,8 @@
       </div>
     </div>
   </div>
+
+ 
  
   </div>
  

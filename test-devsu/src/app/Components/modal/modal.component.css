@@ -1,0 +1,24 @@
+.container {
+    display: none;
+    position: fixed;
+    z-index: 1!important;
+    padding-top: 100px;
+    left: 0!important;
+    top: 0!important;
+    right: 0;
+    width: 100%!important; 
+    height: 100%!important;
+    overflow: auto!important;
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  .content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+  }
+  .align-content{
+    text-align: right!important;
+  }

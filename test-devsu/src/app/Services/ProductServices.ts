@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment } from '../../environments/environment';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient,HttpHeaders,HttpParams} from '@angular/common/http';
 import {ListProductResponse} from '../Interfases/ListProductResponse'
 import {Product} from '../Interfases/Product'
 
@@ -15,30 +15,28 @@ import {Product} from '../Interfases/Product'
     }
   
     private baseUrl = environment.baseUser;
-    private apiListProducts=environment.listProducts;
+    private headers = new HttpHeaders().append('authorId', environment.authorId.toString());
 
 
     public get(url:string) {
-
-      const headers = new HttpHeaders().append('authorId', environment.authorId.toString());
-
-        return this.httpClient.get <ListProductResponse[]> (this.baseUrl + url,{ headers: headers});
+        return this.httpClient.get <ListProductResponse[]> (this.baseUrl + url,{ headers: this.headers});
     }
   
     
     public addProduct(url:string, data:Product) {
-
-      const headers = new HttpHeaders().append('authorId', environment.authorId.toString());
-
-      return this.httpClient.post <Product> (this.baseUrl + url,data,{ headers: headers});
+      return this.httpClient.post <Product> (this.baseUrl + url,data,{ headers: this.headers});
     }
   
   
     public updateProduct(url:string, data:Product) {
+      return this.httpClient.put <Product> (this.baseUrl + url,data,{ headers: this.headers});
+    }
 
-      const headers = new HttpHeaders().append('authorId', environment.authorId.toString());
+    public deleteProduct(url:string, data:Product) {
+      const params = new HttpParams().set('id', data.id);   
+      const options = { params: params, headers: this.headers };
 
-      return this.httpClient.put <Product> (this.baseUrl + url,data,{ headers: headers});
+      return this.httpClient.delete <any> (this.baseUrl + url, options);
     }
   
   

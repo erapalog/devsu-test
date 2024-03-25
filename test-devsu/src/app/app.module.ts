@@ -10,12 +10,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import {  ProductServices } from './Services/ProductServices'
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import {SharedService} from './Services/SharedService'
+import {SharedService} from './Services/SharedService';
+import { ModalComponent } from './Components/modal/modal.component'
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
-    AddProductComponent
+    AddProductComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

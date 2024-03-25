@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder,FormGroup,FormControl, Validators } from '@angular/forms';
+import { Component, OnInit,ViewChild } from '@angular/core';
+import {FormBuilder,FormGroup,FormControl, Validators,AbstractControl } from '@angular/forms';
 import {   environment } from '../../../environments/environment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute ,Router} from '@angular/router';
 import {   ProductServices } from '../../Services/ProductServices'
 import {   SharedService } from '../../Services/SharedService'
 import {Product} from '../../Interfases/Product'
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-add-product',
@@ -12,13 +13,16 @@ import {Product} from '../../Interfases/Product'
   styleUrls: ['./add-product.component.css']
 })
 export class AddProductComponent implements OnInit {
+  @ViewChild('modal', {static: false}) modal!: ModalComponent;
    form: FormGroup;
    data:Product;
+   id:any;
 
   constructor(private route: ActivatedRoute, 
               private formBuilder: FormBuilder,
               private _productService: ProductServices,
-              private _sharedService:SharedService) { 
+              private _sharedService:SharedService,
+              private router: Router) { 
 
     this.data=this._sharedService.getProductData()
 
@@ -54,13 +58,13 @@ export class AddProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id');
   }
 
-  addProduct(){
+  validateProduct(){
 
     let body = {
-      id: this.form.value.id,
+      id:  this.form.value.id,
       name: this.form.value.name,
       description: this.form.value.description,
       logo: this.form.value.logo,
@@ -69,21 +73,48 @@ export class AddProductComponent implements OnInit {
 
     }
 
-    console.log(body)
-
-      this._productService.addProduct(environment.listProducts,body)
-        .subscribe({
-          next:(data:Product) => {
-            console.log(data)
-          //this.listProducts=data;
-          //.listProducts = this.listProducts.slice(0, this.selectedOption);
-          },
-          error: (err: any) => { },
-          complete: () => { }
-          }
-            
-        );
+    if (this.id==1) this.addProduct(body)
+    else this.UpdateProduct(body)
     
+      
+    
+
+  }
+
+  addProduct(body:Product){
+    
+    this._productService.addProduct(environment.listProducts, body)
+    .subscribe({
+      next: (data: Product) => {
+        this.modal.open("Agregado Correctamente",1,{});
+      },
+      error: (err: any) => { },
+      complete: () => { }
+    }
+
+    );
+  }
+
+  get f(): { [key: string]: AbstractControl } {
+    return this.form.controls;
+  }
+
+  UpdateProduct(body:Product){
+    this._productService.updateProduct(environment.listProducts, body)
+    .subscribe({
+      next: (data: Product) => {
+        this.modal.open("Actualizado Correctamente",1,{});
+        
+      },
+      error: (err: any) => { },
+      complete: () => { }
+    }
+
+    );
+  }
+
+  resetForm(): void {
+    (this.id==1) ? this.form.reset() : this.router.navigateByUrl('/');
   }
 
 }
